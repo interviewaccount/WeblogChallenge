@@ -1,4 +1,16 @@
+This solution uses hadoop streaming, with the python mapreduce framework called
+MRJob.
 
-python challenge.py < data/2015_07_22_mktplace_shop_web_log_sample.log  > output/question4-most-engaged.txt
+The only requirement is to have the mrjob package installed, which can be done
+with:
 
+	sudo pip install mrjob
 
+Running the script locally can be done like so:
+
+	python challenge.py < data/2015_07_22_mktplace_shop_web_log_sample.log  >
+		output/question4-most-engaged.txt
+
+The steps() function in challenge.py can be (un)commented out depending on 
+which solution / answer you're looking for. This part can be cleaned up 
+further or have a script per solution.
