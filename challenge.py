@@ -82,8 +82,10 @@ class WeblogChallenge(MRJob):
 
 		yield 1, (client_ip, session_seconds)
 
+	# If run on a production cluster, this final reducer step should be run with one reducer.
+	# Note: it's tempting to just do sorted(values)[:500], but this doesn't scale well as
+	# input grows. ( n log (n) for sorted vs n log (k) for heap priority queue where k = top items )
 	def reducer_top500_active_clients(self, _, values):
-
 		import heapq
 		top = heapq.nlargest(500, values, key=lambda x: x[1])
 
