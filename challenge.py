@@ -11,6 +11,9 @@ SECONDS_FIFTEEN_MINUTES = 60 * 15
 class WeblogProtocol(object):
     def read(self, line):
 		for row in csv.reader([line], delimiter=" ", quotechar='"'):
+			if len(row) != 15:
+				return None, None
+
 			timestamp = row[0]
 			client_ip = row[2].split(':')[0]
 			url = row[11].split()[1]
@@ -22,6 +25,9 @@ class WeblogChallenge(MRJob):
 
 	# group by client_ip
 	def group_by_clientip(self, _, value):
+		if not value:
+			return
+
 		timestamp_str, client_ip, url = value
 		yield client_ip, (timestamp_str, url)
 
